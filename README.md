@@ -11,7 +11,7 @@ a) which messages are flowing through exchange X
 b) which messages are being delivered by queue Y
 
 We can use [Firehose](#Firehose) or [rabbitmq_tracing plugin](rabbitmq_tracing-plugin) to get to know a) and b).  
-We can use [Rabtap] to get to know a).
+We can use [Rabtap](#Rabtap) to get to know a).
 
 
 ### Firehose
@@ -65,6 +65,7 @@ On an experiment run to asses the performance impact of **rabbitmq_tracing** plu
 
 [Rabtap](https://github.com/jandelgado/rabtap) taps messages being sent to exchanges using RabbitMQ exchange-to-exchange bindings without affecting actual message delivery.
 
+TODO
 
 ## Sniff AMQP traffic
 
