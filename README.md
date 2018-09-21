@@ -6,11 +6,11 @@
 
 ## Sniff messages as they traverse RabbitMQ
 
-I want to know :
-a) which messages are flowing through exchange X
+I want to know :  
+a) which messages are flowing through exchange X  
 b) which messages are being delivered by queue Y
 
-We can use [Firehose](#Firehose) or [rabbitmq_tracing plugin](rabbitmq_tracing_plugin) to get to know a) and b).
+We can use [Firehose](#Firehose) or [rabbitmq_tracing plugin](rabbitmq_tracing-plugin) to get to know a) and b).  
 We can use [Rabtap] to get to know a).
 
 
