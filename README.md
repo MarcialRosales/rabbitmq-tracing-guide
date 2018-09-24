@@ -42,7 +42,7 @@ Only **administrators** -those users with **administrator** *user tag* can defin
 
 Having `rabbitmq_tracing` plugin enabled has no negative performance impact when no traces have been defined yet. But it has a slightly worse performance than using **Firehose**.
 
-To actually sniff messages we need to add a trace via the management console. Messages are written to a log file in either text or json format. Enter onto the `pattern` field what we want to sniff:
+To actually sniff messages we need to add a trace via the management console. Messages are written to a log file in either text or json format. To define a trace we need to fill in which vhost we want to trace on, the name of the trace, the format (text or json), how many bytes we want to log, and the messages we want to sniff (the field is called `pattern` in the management console):
   - `#` sniff every message sent to any exchange and delivered by any queue
   - `publish.#` sniff every message sent to any exchange
   - `deliver.#` sniff every message delivered by any queue
