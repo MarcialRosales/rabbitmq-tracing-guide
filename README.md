@@ -65,7 +65,15 @@ On an experiment run to asses the performance impact of **rabbitmq_tracing** plu
 
 [Rabtap](https://github.com/jandelgado/rabtap) taps messages being sent to exchanges using RabbitMQ exchange-to-exchange bindings without affecting actual message delivery.
 
-TODO
+As opposed to the previous two options -**Firehose** and **Tracing plugin**, it does not capture when messages are delivered from queues.
+
+Sniffed messages are either printed directly onto the terminal where we running **RabTap** or onto a file.
+
+The command below sniffs all messages sent to the `amq.fanout` exchange and prints the messages on the terminal.
+```
+rabtap tap --uri amqp://guest:guest@localhost/ amq.fanout:
+```
+
 
 ## Sniff AMQP traffic
 
