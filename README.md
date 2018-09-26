@@ -10,7 +10,7 @@ b) which messages are being delivered by queue Y
 We can use [Firehose](#Firehose) or [rabbitmq_tracing plugin](rabbitmq_tracing-plugin) to get to know a) and b).  
 We can use [Rabtap](#Rabtap) to get to know a).
 
-**TL;DR** None of the tools mentioned above will tell us which user and/or from which connection (ip, port) published or received the message. The connection and user information provided by the **rabbitmq_tracing plugin** is relative to the user used by the plugin, it is not the user that either received or published the message.
+**TL;DR** None of the tools mentioned above will tell us which user published or received the message and/or from which connection (ip, port). The connection and user information provided by the **rabbitmq_tracing plugin** is relative to the user used by the plugin, it is not the user that either received or published the message.
 
 ## Firehose
 
