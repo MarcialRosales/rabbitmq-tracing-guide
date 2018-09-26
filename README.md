@@ -40,6 +40,8 @@ To stop tracing, remove any bindings to the `amq.rabbitmq.trace` exchange.
 
 To disable tracing entirely, the **Operator** needs to run `rabbitmqctl trace_off`.
 
+**TL;DR** If [rabbitmq_tracing plugin](#rabbitmq_tracing-plugin) is also enabled and the **administrator** stops the last **Trace**, it will disable **Firehose** tracing entirely in addition to stopping the last **Trace** instance.
+
 ### Implications of tracing messages with Firehose
 
 Having **Firehose** enabled (i.e. we have run `rabbitmqctl trace_on`) has a negative performance impact even when there are no bindings on `amq.rabbitmq.trace`. Furthermore, it has a significant performance penalty when we define traces.
