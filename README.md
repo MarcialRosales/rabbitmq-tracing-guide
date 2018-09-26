@@ -174,36 +174,20 @@ publishing - scenario 1
 
 Scenario 2:
 - Same as in scenario 1; define a trace on `rmq/0` node with pattern `publish.amq.direct`
-- Send message via `rmq/1` node to `q-rmq1` through `amq.direct` exchange
+- Send message via `rmq/1` node to `q-rmq0` through `amq.direct` exchange
 
 ```
-                                        [ ** RMQ Node rmq/0 ** ]-----{ q-rmq0 }
+                                        [ ** RMQ Node rmq/0 ** ]---->{ q-rmq0 }
 
-  [AMQP Client]--publish(amq.direct)--->[ RMQ Node rmq/1       ]---->{ q-rmq1 }
+  [AMQP Client]--publish(amq.direct)--->[ RMQ Node rmq/1       ]-----{ q-rmq1 }
 
 ```
 Run this command from `rmq/1` node:
 ```
-rabbitmqadmin publish routing_key=q-rmq1 exchange=amq.direct payload="publish - scenario 2"   
+rabbitmqadmin publish routing_key=q-rmq0 exchange=amq.direct payload="publish - scenario 2"   
 ```
 - Outcome: **Nothing gets logged !!!**
 
-
-Scenario 3:
-- Same as in scenario 1, i.e. define a trace on `rmq/0` node with pattern `publish.amq.direct`
-```
-                                        [ ** RMQ Node rmq/0 ** ]--->{ q-rmq0 }
-
-  [AMQP Client]--publish(amq.direct)--->[ RMQ Node rmq/1       ]----{ q-rmq1 }
-
-```
-- Send message via `rmq/1` node to `q-rmq0` through `amq.direct` exchange
-  Run this command from `rmq/1` node:
-```
-   rabbitmqadmin publish routing_key=q-rmq0 exchange=amq.direct payload="publish - scenario 2"   
-
-```
-- Outcome: **Nothing gets logged !!!**
 
 **Tracing message delivery**
 
