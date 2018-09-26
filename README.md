@@ -22,13 +22,13 @@ Only **Operators** -those who have access to **RabbitMQ** via `rabbitmqctl`- can
 
 ### How to enable/configure it
 
-Run `rabbitmqctl trace_on` to **enable** tracing **ONLY** on the *default vhost* and on the node from where we are running `rabbitmqctl trace_on`. However, it can also be enabled on other *vhosts* by passing the argument `-p <vhostName>` and/or on other nodes by passing `-n <nodeName>`.
+The **Operator** runs `rabbitmqctl trace_on` to **enable** tracing **ONLY** on the *default vhost* and on the node from where we are running `rabbitmqctl trace_on`. However, it can also be enabled on other *vhosts* by passing the argument `-p <vhostName>` and/or on other nodes by passing `-n <nodeName>`.
 
 **TL;DR** It is really important to understand that **Firehose** will **ONLY** trace messages that were published through the node(s) we are tracing on and likewise it will **ONLY** trace messages that were delivered to a client via the node(s) we are tracing on.
 
 ### How to start tracing
 
-In the previous section we enabled tracing but we are not actually tracing any messages yet. To actually trace messages we need to *bind* a queue (this is the destination of the traced messages) to the `amq.rabbitmq.trace` exchange and use the appropriate *routing key* based on what we want to trace:
+In the previous section we enabled tracing but we are not actually tracing any messages yet. To actually trace messages a RabbitMQ user needs to *bind* a queue (this is the destination of the traced messages) to the `amq.rabbitmq.trace` exchange and use the appropriate *routing key* based on what we want to trace:
   - `#` trace every message sent to any exchange and delivered by any queue
   - `publish.#` trace every message sent to any exchange
   - `deliver.#` trace every message delivered by any queue
@@ -64,11 +64,11 @@ Only **Operators** -those who have access to **RabbitMQ** via `rabbitmqctl`- can
 ### How to enable/configure it
 
 We need to carry out 2 steps:
-  1. First, we have to enable the plugin
+  1. First, the **Operator** has to enable the plugin
     ```
     rabbitmq-plugins enable rabbitmq_tracing
     ```
-  2. Second, we have to configure in `rabbitmq.config`, the location where to store the trace log files. And also the RabbitMQ credentials the plugin uses to create a queue, bind it to the `amq.rabbitmq.trace` and consume messages from the queue to dump them onto a log file. Although **administrators** can optionally use different credentials for each trace.
+  2. Second, the **administrator** has to configure in `rabbitmq.config`, the location where to store the trace log files. And also the RabbitMQ credentials the plugin uses to create a queue, bind it to the `amq.rabbitmq.trace` and consume messages from the queue to dump them onto a log file. Although **administrators** can optionally use different credentials for each trace.
     ```
     ....
     {rabbitmq_tracing,
@@ -81,8 +81,8 @@ We need to carry out 2 steps:
     ....
    ```
 
-  3. Restart RabbitMQ cluster to take the configuration changes
-  4. The **Admin** tab in RabbitMQ Management UI should show a new menu option called **Tracing**
+  3. **Operator** has to restart RabbitMQ cluster to take the configuration changes
+  4. The **administrator** should see a new option called **Tracing** in the the **Admin** tab in RabbitMQ Management UI 
 
 ### How to start tracing
 
