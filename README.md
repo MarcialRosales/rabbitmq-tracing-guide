@@ -151,12 +151,25 @@ Scenario 1:
 ```
 Run this script from `rmq/0` node:
 ```
-rabbitmqadmin publish routing_key=q-rmq0 exchange=amq.direct payload="message 1"
+rabbitmqadmin publish routing_key=q-rmq0 exchange=amq.direct payload="publishing - message 1"
 ```
 
 - Outcome: **message is logged !!!**
 ```
+================================================================================
+2018-09-26 15:51:02:262: Message published
 
+Node:         rabbit@rmq0-rmq-mrosales-20180925
+Connection:   <rabbit@rmq0-rmq-mrosales-20180925.1.8586.1>
+Virtual host: /
+User:         admin
+Channel:      1
+Exchange:     amq.direct
+Routing keys: [<<"q-rmq0">>]
+Routed queues: [<<"q-rmq0">>]
+Properties:   []
+Payload:
+publishing - scenario 1
 ```
 
 Scenario 2:
