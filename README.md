@@ -55,7 +55,7 @@ On an experiment run to asses the performance impact of **Firehose** this is wha
 
 ## rabbitmq_tracing plugin
 
-The **rabbitmq_tracing plugin** allows us to trace messages as they traverse RabbitMQ and sends them to a log file that we can later on view -if we have access to the node- or we can download it via the Management UI. It uses the **Firehose**.
+The **rabbitmq_tracing plugin** allows us to trace messages as they traverse RabbitMQ and sends them to a log file that we can later on view -if we have access to the node- or we can download it via the Management UI. It uses the [Firehose](#Firehose)
 
 ### Who can use it
 
