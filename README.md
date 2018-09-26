@@ -65,22 +65,23 @@ Only **Operators** -those who have access to **RabbitMQ** via `rabbitmqctl`- can
 
 We need to carry out 2 steps:
   1. First, the **Operator** has to enable the plugin
-    ```
-    rabbitmq-plugins enable rabbitmq_tracing
-    ```
-  2. Second, the **administrator** has to configure in `rabbitmq.config`, the location where to store the trace log files. It also has to configure the RabbitMQ credentials the plugin uses to create a queue, bind it to the `amq.rabbitmq.trace` and consume messages from the queue to dump them onto a log file. Although **administrators** can optionally use different credentials for each trace.
-    ```
-    ....
-    {rabbitmq_tracing,
-       [
-           {directory, "/var/vcap/sys/log/rabbitmq-server/tracing"},
-           {username, <<"admin">>},
-           {password, <<"password">>}
-       ]
-    },
-    ....
-   ```
 
+```
+rabbitmq-plugins enable rabbitmq_tracing
+```
+  2. Second, the **administrator** has to configure in `rabbitmq.config`, the location where to store the trace log files. It also has to configure the RabbitMQ credentials the plugin uses to create a queue, bind it to the `amq.rabbitmq.trace` and consume messages from the queue to dump them onto a log file.
+
+  ```
+  ....
+  {rabbitmq_tracing,
+     [
+         {directory, "/var/vcap/sys/log/rabbitmq-server/tracing"},
+         {username, <<"admin">>},
+         {password, <<"password">>}
+     ]
+  },
+  ....
+  ```
   3. **Operator** has to restart RabbitMQ cluster to take the configuration changes
   4. The **administrator** should see a new option called **Tracing** in the the **Admin** tab in RabbitMQ Management UI
 
@@ -89,9 +90,8 @@ We need to carry out 2 steps:
 1. Go to the Management UI > *Admin* tab > *Tracing* menu.
 2. Choose the node you want to trace on
   ![Choose node](rabbitmq_tracing_choose_node.png)
-3. Give it a name to your trace. Choose the vhost. We can limit the amount of bytes of the payload we want to log.
-
-  **Delete existing trace file if it is not empty otherwise the plugin will fail to create the trace**
+3. Give it a name to your trace. Choose the vhost. We can limit the amount of bytes of the payload we want to log.  
+  **Warning**: We should delete the trace file if it exists and it is not empty otherwise the plugin will fail to create the trace
 4. Choose which messages we want to trace:
   - `#` trace every message sent to any exchange and delivered by any queue
   - `publish.#` trace every message sent to any exchange
