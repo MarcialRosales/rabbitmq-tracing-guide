@@ -151,7 +151,7 @@ Scenario 1:
 ```
 Run this script from `rmq/0` node:
 ```
-rabbitmqadmin publish routing_key=q-rmq0 exchange=amq.direct payload="publishing - message 1"
+rabbitmqadmin publish routing_key=q-rmq0 exchange=amq.direct payload="publishing - scenario 1"
 ```
 
 - Outcome: **message is logged !!!**
@@ -184,7 +184,7 @@ Scenario 2:
 ```
 Run this command from `rmq/1` node:
 ```
-rabbitmqadmin publish routing_key=q-rmq1 exchange=amq.direct payload="publish - scenario 1"   
+rabbitmqadmin publish routing_key=q-rmq1 exchange=amq.direct payload="publish - scenario 2"   
 ```
 - Outcome: **Nothing gets logged !!!**
 
