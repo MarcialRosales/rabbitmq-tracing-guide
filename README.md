@@ -114,7 +114,7 @@ After we add the trace we can see:
 
 **TL;DR** Binding our own queues directly to the `amq.rabbitmq.trace` will not work when we are using the plugin. It only works when we have **Firehose** tracing on.
 
-**TL;DR** If we have **Firehose** enabled and also a **Trace**, each one will work as expected. The **Trace** will trace the event in the log and the **Firehose** will send the message to any bound queue to the `amq.rabbitmq.trace` exchange. The **Trace** will only receive the event once though.  
+**TL;DR** If we have **Firehose** enabled and also a **Trace**, each one will work as expected. The **Trace** will trace the message in the corresponding log and the **Firehose** will send the message to any bound queue to the `amq.rabbitmq.trace` exchange. The **Trace** will only receive the event once though.  
 
 Is it possible to capture publishing via the default exchange ?
 
