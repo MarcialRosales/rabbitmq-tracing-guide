@@ -108,7 +108,7 @@ After we add the trace we can see:
   ![trace](rabbitmq-tracing-conn.png)
 
 
-**TL;DR** It is really important to understand that `rabbitmq_tracing` will **ONLY** trace messages that were published via the node(s) we are tracing on and likewise it will **ONLY** trace messages that were delivered via the queues on the node(s) we are tracing on. See below some scenarios we may encounter. See section [Tracing in action](#Tracing-in-action) for further details.
+**TL;DR** It is really important to understand that `rabbitmq_tracing` will **ONLY** trace messages that were published via the node(s) we are tracing on and likewise it will **ONLY** trace messages that were delivered via the node(s) we are tracing on. See below some scenarios we may encounter. See section [Tracing in action](#Tracing-in-action) for further details.
 
 **TL;DR** Purged messages are not delivered hence they are not traced at all.
 
