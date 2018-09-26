@@ -68,7 +68,7 @@ We need to carry out 2 steps:
     ```
     rabbitmq-plugins enable rabbitmq_tracing
     ```
-  2. Second, the **administrator** has to configure in `rabbitmq.config`, the location where to store the trace log files. And also the RabbitMQ credentials the plugin uses to create a queue, bind it to the `amq.rabbitmq.trace` and consume messages from the queue to dump them onto a log file. Although **administrators** can optionally use different credentials for each trace.
+  2. Second, the **administrator** has to configure in `rabbitmq.config`, the location where to store the trace log files. It also has to configure the RabbitMQ credentials the plugin uses to create a queue, bind it to the `amq.rabbitmq.trace` and consume messages from the queue to dump them onto a log file. Although **administrators** can optionally use different credentials for each trace.
     ```
     ....
     {rabbitmq_tracing,
@@ -82,7 +82,7 @@ We need to carry out 2 steps:
    ```
 
   3. **Operator** has to restart RabbitMQ cluster to take the configuration changes
-  4. The **administrator** should see a new option called **Tracing** in the the **Admin** tab in RabbitMQ Management UI 
+  4. The **administrator** should see a new option called **Tracing** in the the **Admin** tab in RabbitMQ Management UI
 
 ### How to start tracing
 
