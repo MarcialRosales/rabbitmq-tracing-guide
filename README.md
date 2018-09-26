@@ -1,7 +1,7 @@
-# RabbitMQ Sniffer Guide
+# RabbitMQ Tracing Guide
 
 
-Sniff messages as they traverse RabbitMQ
+Trace messages as they traverse RabbitMQ
 
 I want to know :  
 a) which messages are published through exchange X  
@@ -14,11 +14,11 @@ We can use [Rabtap](#Rabtap) to get to know a).
 
 ## Firehose
 
-The **Firehose** allows us to sniff messages as they traverse RabbitMQ and sends a copy of each sniffed message to an exchange. It is up to us to bind a queue to that exchange in order to get those messages.  
+The **Firehose** allows us to trace messages as they traverse RabbitMQ and sends a copy of each traced message to an exchange. It is up to us to bind a queue to that exchange in order to get those messages.  
 
 ### Who can use it
 
-Only **Operators** -those who have access to **RabbitMQ** via `rabbitmqctl`- can enable this feature. However, once it is enabled, any user which has permission to bind a queue to the `amq.rabbitmq.trace` exchange can use this feature to sniff messages.
+Only **Operators** -those who have access to **RabbitMQ** via `rabbitmqctl`- can enable this feature. However, once it is enabled, any user which has permission to bind a queue to the `amq.rabbitmq.trace` exchange can use this feature to trace messages.
 
 ### How to enable/configure it
 
@@ -28,11 +28,11 @@ Run `rabbitmqctl trace_on` to **enable** tracing **ONLY** on the *default vhost*
 
 ### How to start tracing
 
-In the previous section we enabled tracing but we are not actually sniffing any messages yet. To actually sniff messages we need to *bind* a queue (this is the destination of the sniffed messages) to the `amq.rabbitmq.trace` exchange and use the appropriate *routing key* based on what we want to sniff:
-  - `#` sniff every message sent to any exchange and delivered by any queue
-  - `publish.#` sniff every message sent to any exchange
-  - `deliver.#` sniff every message delivered by any queue
-  - `publish.X` sniff every message sent to the exchange `X`
+In the previous section we enabled tracing but we are not actually tracing any messages yet. To actually trace messages we need to *bind* a queue (this is the destination of the traced messages) to the `amq.rabbitmq.trace` exchange and use the appropriate *routing key* based on what we want to trace:
+  - `#` trace every message sent to any exchange and delivered by any queue
+  - `publish.#` trace every message sent to any exchange
+  - `deliver.#` trace every message delivered by any queue
+  - `publish.X` trace every message sent to the exchange `X`
 
 ### How to stop tracing
 
@@ -53,11 +53,11 @@ On an experiment run to asses the performance impact of **Firehose** this is wha
 
 ## rabbitmq_tracing plugin
 
-The **rabbitmq_tracing plugin** allows us to sniff messages as they traverse RabbitMQ and sends them to a log file that we can later on view -if we have access to the node- or we can download it via the Management UI. It uses the **Firehose**.
+The **rabbitmq_tracing plugin** allows us to trace messages as they traverse RabbitMQ and sends them to a log file that we can later on view -if we have access to the node- or we can download it via the Management UI. It uses the **Firehose**.
 
 ### Who can use it
 
-Only **Operators** -those who have access to **RabbitMQ** via `rabbitmqctl`- can enable this feature. And only **administrators** -those users with **administrator** *user tag*- can use this feature to sniff messages. No other *user tags* grants access to this feature.
+Only **Operators** -those who have access to **RabbitMQ** via `rabbitmqctl`- can enable this feature. And only **administrators** -those users with **administrator** *user tag*- can use this feature to trace messages. No other *user tags* grants access to this feature.
 
 ### How to enable/configure it
 
@@ -91,10 +91,10 @@ We need to carry out 2 steps:
 
   **Delete existing trace file if it is not empty otherwise the plugin will fail to create the trace**
 4. Choose which messages we want to trace:
-  - `#` sniff every message sent to any exchange and delivered by any queue
-  - `publish.#` sniff every message sent to any exchange
-  - `deliver.#` sniff every message delivered by any queue
-  - `publish.X` sniff every message sent to the exchange `X`
+  - `#` trace every message sent to any exchange and delivered by any queue
+  - `publish.#` trace every message sent to any exchange
+  - `deliver.#` trace every message delivered by any queue
+  - `publish.X` trace every message sent to the exchange `X`
 
 After we add the trace we can see:
 
@@ -120,7 +120,7 @@ Is it possible to capture publishing via the default exchange ?
 
 To stop a tracing, simply click on the `Stop` button on the trace we want to stop. It will close the consumer connection and delete the internal queue. If the trace generated a trace log file, it will stay until we delete it by clicking on the `Delete` button.
 
-**Do not delete the file before stopping the trace**. The trace will continue sniffing messages but they will not be logged. So effectively we have stopped tracing.
+**Do not delete the file before stopping the trace**. The trace will continue tracing messages but they will not be logged. So effectively we have stopped tracing.
 
 To disable tracing entirely, the **Operator** needs to disable the plugin by running `rabbimq-plugins disable rabbitmq_tracing`
 
@@ -285,15 +285,15 @@ We observe a slightly worse performance compared to using **Firehose**.
 
 As opposed to the previous two options -**Firehose** and **Tracing plugin**, it does not capture when messages are delivered from queues.
 
-Sniffed messages are either printed directly onto the terminal where we running **RabTap** or onto a file.
+Traced messages are either printed directly onto the terminal where we running **RabTap** or onto a file.
 
-The command below sniffs all messages sent to the `amq.fanout` exchange and prints the messages on the terminal.
+The command below traces all messages sent to the `amq.fanout` exchange and prints the messages on the terminal.
 ```
 rabtap tap --uri amqp://guest:guest@localhost/ amq.fanout:
 ```
 
 
-## Sniff AMQP traffic
+## Tracing AMQP traffic
 
 
 ### Tracer
