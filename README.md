@@ -141,7 +141,7 @@ Let's use the **rabbitmq_tracing plugin** to trace publishing and delivery of me
 We will see 3 scenarios where we demonstrate that in order to trace every published message, we need to have a trace on all the nodes the AMQP clients are publishing to.
 
 Scenario 1:
-- Define a trace on `rmq/0` node (`10.0.1.0`) with pattern `publish.amq.direct` and name `publish.amq.direct`
+- Define a trace on `rmq/0` node  with pattern `publish.amq.direct` and name `publish.amq.direct`
 - Send message via `rmq/0` node to `q-rmq0` through `amq.direct` exchange
 
 ```
@@ -161,7 +161,7 @@ rabbitmqadmin publish routing_key=q-rmq0 exchange=amq.direct payload="message 1"
 
 Scenario 2:
 - Same as in scenario 1; define a trace on `rmq/0` node with pattern `publish.amq.direct`
-- Send message via `rmq/1` node (`10.0.1.1`) to `q-rmq1` through `amq.direct` exchange
+- Send message via `rmq/1` node to `q-rmq1` through `amq.direct` exchange
 
 ```
                                         [ ** RMQ Node rmq/0 ** ]-----{ q-rmq0 }
