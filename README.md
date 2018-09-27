@@ -289,18 +289,38 @@ bin/runjava com.rabbitmq.perf.PerfTest -u test
 We observe a slightly worse performance compared to using **Firehose**.
 
 
-### Rabtap
+## Rabtap
 
 [Rabtap](https://github.com/jandelgado/rabtap) taps messages being sent to exchanges using RabbitMQ exchange-to-exchange bindings without affecting actual message delivery.
 
-As opposed to the previous two options -**Firehose** and **Tracing plugin**, it does not capture when messages are delivered from queues.
+**Rabtap** has certain limitations compared to **Firehose**/**rabbitmq_tracing plugin**:
 
-Traced messages are either printed directly onto the terminal where we running **RabTap** or onto a file.
+- It only captures published messages
+- It does not capture when messages get delivered
+- For *Direct* exchanges we must specify the *routing key*
+
+On the other hand, it presents the convenience of tracing messages directly onto the standard output.
+
+### Who can use it
+
+Any RabbitMQ user with permissions to bind to the exchange we want to tracing.
+
+### How to enable/configure it
+
+There is no need to configure or enable anything in RabbitMQ. Just install it and use it.
+
+### How to start tracing
 
 The command below traces all messages sent to the `amq.fanout` exchange and prints the messages on the terminal.
 ```
 rabtap tap --uri amqp://guest:guest@localhost/ amq.fanout:
 ```
+
+Check out [Rabtap docs](https://github.com/jandelgado/rabtap#wire-tapping-messages) for further examples.
+
+### How to stop tracing
+
+By stopping the `rabtap` application.
 
 
 ## Tracing AMQP traffic
