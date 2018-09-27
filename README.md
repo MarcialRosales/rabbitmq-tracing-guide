@@ -36,7 +36,7 @@ In the previous section we enabled tracing but we are not actually tracing any m
 
 ### How to stop tracing
 
-To stop tracing, remove any bindings to the `amq.rabbitmq.trace` exchange.
+To stop tracing, remove any bindings from the `amq.rabbitmq.trace` exchange.
 
 To disable tracing entirely, the **Operator** needs to run `rabbitmqctl trace_off`.
 
