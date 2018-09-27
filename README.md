@@ -44,14 +44,21 @@ To disable tracing entirely, the **Operator** needs to run `rabbitmqctl trace_of
 
 ### Implications of tracing messages with Firehose
 
-Having **Firehose** enabled (i.e. we have run `rabbitmqctl trace_on`) has a negative performance impact even when there are no bindings on `amq.rabbitmq.trace`. Furthermore, it has a significant performance penalty when we define traces.
+Having **Firehose** enabled has a negative performance impact even when there are no bindings on `amq.rabbitmq.trace`. Furthermore, it has a significant performance penalty when we define traces.
 
-On an experiment run to asses the performance impact of **Firehose** this is what we found out:
-- We use RabbitMQ 3.7.6 running with Erlang 20.3.8.1 on a MBP (2,5 GHz Intel Core i7) and `rabbitmq-perf-test-1.1.0`
-- `bin/runjava com.rabbitmq.perf.PerfTest -u test` could produce on average 24k msg/sec
-- After running `rabbimtqctl trace_on`, the message throughput dropped to 19k msg/sec
-- After binding a queue to `amq.rabbitmq.trace` with the routing key `#`, the message throughput dropped to 9k msg/second
-- After running `rabbimtqctl trace_off`, the message throughput increased again to 24k msg/sec. It does not matter whether we have any queue bound to `amq.rabbitmq.trace`.
+We run a performance test that shown a 65% throughput reduction. See details below:
+- RabbitMQ 3.7.6 running with Erlang 20.3.8.1 on a MBP (2,5 GHz Intel Core i7)
+- `rabbitmq-perf-test-1.1.0` used to simulate load and also run in the same machine as RabbitMQ
+```
+bin/runjava com.rabbitmq.perf.PerfTest -u test
+```
+- **Baseline produced 24k msg/sec**
+- After running `rabbimtqctl trace_on`, the message throughput dropped to **19k msg/sec**
+- After binding a queue to `amq.rabbitmq.trace` with the routing key `#`, the message throughput dropped to **9k msg/second**
+- After running `rabbimtqctl trace_off`, the message throughput increased again to **24k msg/sec**.
+  > It does not matter whether we have any queue bound to `amq.rabbitmq.trace`.
+
+There is a significant throughput degradation when the messages are being traced.
 
 ## rabbitmq_tracing plugin
 
@@ -268,12 +275,16 @@ rabbitmqadmin get queue=q-rmq0 count=1
 
 Having `rabbitmq_tracing` plugin enabled has no negative performance impact if we have not defined any traces yet.
 
-On an experiment run to asses the performance impact of **rabbitmq_tracing** plugin this is what we found out:
-- We use RabbitMQ 3.7.6 running with Erlang 20.3.8.1 on a MBP (2,5 GHz Intel Core i7) and `rabbitmq-perf-test-1.1.0`
+There is a significant throughput degradation when the messages are being traced. We run a performance test that shown a 65% throughput reduction. See details below:
+- RabbitMQ 3.7.6 running with Erlang 20.3.8.1 on a MBP (2,5 GHz Intel Core i7)
 - **rabbitmq_tracing** was enabled
-- `bin/runjava com.rabbitmq.perf.PerfTest -u test` could produce on average 24k msg/sec
-- Define a new trace via the Management UI. `Name = "tracer-1", Pattern = "#"`
-- Message throughput dropped to again to 8 msg/sec
+- `rabbitmq-perf-test-1.1.0` used to simulate load and also run in the same machine as RabbitMQ
+```
+bin/runjava com.rabbitmq.perf.PerfTest -u test
+```
+- **Baseline produced 24k msg/sec**
+- Add a trace (the only one in cluster) that traced both , `publish` and `deliver`, messages.
+- **Message throughput dropped to 8k msg/sec**
 
 We observe a slightly worse performance compared to using **Firehose**.
 
