@@ -46,7 +46,7 @@ To disable tracing entirely, the **Operator** needs to run `rabbitmqctl trace_of
 
 Having **Firehose** enabled has a negative performance impact even when there are no bindings on `amq.rabbitmq.trace`. Furthermore, it has a significant performance penalty when we define traces.
 
-We run a performance test that shown a 65% throughput reduction. See details below:
+We run a performance test that shown a **5% throughput reduction** without any tracing only with tracing enabled. And a **62% throughput reduction** when we trace both, `publish` and `deliver`, messages. See details below:
 - RabbitMQ 3.7.6 running with Erlang 20.3.8.1 on a MBP (2,5 GHz Intel Core i7)
 - `rabbitmq-perf-test-1.1.0` used to simulate load and also run in the same machine as RabbitMQ
 ```
@@ -54,7 +54,7 @@ bin/runjava com.rabbitmq.perf.PerfTest -u test
 ```
 - **Baseline produced 24k msg/sec**
 - After running `rabbimtqctl trace_on`, the message throughput dropped to **19k msg/sec**
-- After binding a queue to `amq.rabbitmq.trace` with the routing key `#`, the message throughput dropped to **9k msg/second**
+- After binding a queue to `amq.rabbitmq.trace` with the routing key `#` (i.e. tracing both `publish` and `deliver` flows), the message throughput dropped to **9k msg/second**
 - After running `rabbimtqctl trace_off`, the message throughput increased again to **24k msg/sec**.
   > It does not matter whether we have any queue bound to `amq.rabbitmq.trace`.
 
@@ -275,7 +275,7 @@ rabbitmqadmin get queue=q-rmq0 count=1
 
 Having `rabbitmq_tracing` plugin enabled has no negative performance impact if we have not defined any traces yet.
 
-There is a significant throughput degradation when the messages are being traced. We run a performance test that shown a 65% throughput reduction. See details below:
+There is a significant throughput degradation when the messages (`publish` and `deliver`) are being traced. We run a performance test that shown a 66% throughput reduction. See details below:
 - RabbitMQ 3.7.6 running with Erlang 20.3.8.1 on a MBP (2,5 GHz Intel Core i7)
 - **rabbitmq_tracing** was enabled
 - `rabbitmq-perf-test-1.1.0` used to simulate load and also run in the same machine as RabbitMQ
