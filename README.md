@@ -40,7 +40,7 @@ To stop tracing, remove any bindings from the `amq.rabbitmq.trace` exchange.
 
 To disable tracing entirely, the **Operator** needs to run `rabbitmqctl trace_off`.
 
-**TL;DR** If [rabbitmq_tracing plugin](#rabbitmq_tracing-plugin) is also enabled and the **administrator** stops the last **Trace**, it will disable **Firehose** tracing entirely in addition to stopping the last **Trace** instance.
+**TL;DR** If [rabbitmq_tracing plugin](#rabbitmq_tracing-plugin) is also enabled and the **administrator** stops the last **Trace**, it will disable **Firehose** tracing entirely in addition to stopping the **Trace** instance.
 
 ### Implications of tracing messages with Firehose
 
@@ -66,7 +66,7 @@ The **rabbitmq_tracing plugin** allows us to trace messages as they traverse Rab
 
 ### Who can use it
 
-Only **Operators** -those who have access to **RabbitMQ** via `rabbitmqctl`- can enable this feature. And only **administrators** -those users with **administrator** *user tag*- can use this feature to trace messages. No other *user tags* grants access to this feature.
+Only **Operators** -those who have access to **RabbitMQ** via `rabbitmq-plugins enable rabbitmq_tracing`- can enable this feature. And only **administrators** -those users with **administrator** *user tag*- can use this feature to trace messages. No other *user tags* grants access to this feature.
 
 ### How to enable/configure it
 
@@ -89,7 +89,7 @@ rabbitmq-plugins enable rabbitmq_tracing
   },
   ....
   ```
-  3. **Operator** has to restart RabbitMQ cluster to take the configuration changes
+  3. **Operator** has to restart RabbitMQ cluster not only to take the configuration changes but also to make the plugin visible in the **Admin** tab.
   4. The **administrator** should see a new option called **Tracing** in the the **Admin** tab in RabbitMQ Management UI
 
 ### How to start tracing
