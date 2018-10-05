@@ -66,7 +66,7 @@ The **rabbitmq_tracing plugin** allows us to trace messages as they traverse Rab
 
 ### Who can use it
 
-Only **Operators** -those who have access to **RabbitMQ** via `rabbitmq-plugins enable rabbitmq_tracing`- can enable this feature. And only **administrators** -those users with **administrator** *user tag*- can use this feature to trace messages. No other *user tags* grants access to this feature.
+Only **Operators** -those who have access to **RabbitMQ** and can run `rabbitmq-plugins enable rabbitmq_tracing`- can enable this feature. And only **administrators** -those users with **administrator** *user tag*- can use this feature to trace messages. No other *user tags* grants access to this feature.
 
 ### How to enable/configure it
 
